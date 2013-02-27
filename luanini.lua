@@ -44,29 +44,27 @@ function loadConfiguration(path)
   file:close()
 
   return configuration
-
 end
 
 function saveConfiguration(path, tab)
+  assert(path ~= nil, "Path can\'t be nil")
+  assert(type(tab) == "table", "Second parameter must be a table")
 
-    assert(path ~= nil, "Path can\'t be nil")
-    assert(type(tab) == "table", "Second parameter must be a table")
+  local f = io.open(path, "w")
 
-    local f = io.open(path, "w")
+  for section, val in pairs(tab) do
+    f:write("["..section.."]".."\n")
 
-    for section, val in pairs(tab) do
-      f:write("["..section.."]".."\n")
-
-      for item, value in pairs(tab[section]) do
-        item = trim(item)
-        value = trim(value)
-        f:write(item.." = "..value.."\n")
-      end
+    for item, value in pairs(tab[section]) do
+      item = trim(item)
+      value = trim(value)
+      f:write(item.." = "..value.."\n")
     end
+  end
 
-    f:close()
+  f:close()
 end
 
 function trim (s)
-      return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
+  return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
 end

@@ -15,7 +15,7 @@ Small lua lib for R/W access to the INI files.
 
     saveConfiguration(path, config)
 
-If you want to only change one line
+If you want to only change one line:
 
     config[section][item] = value
     local config = loadConfiguration("path.ini")
